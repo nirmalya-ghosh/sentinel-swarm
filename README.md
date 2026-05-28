@@ -44,6 +44,7 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 2. Run `supabase/schema.sql` in the Supabase SQL editor.
 3. Enable email/password auth.
 4. Add the public URL and anon key to `.env.local`.
+5. To enable Google login, turn on the Google provider in Supabase Auth, add your Google OAuth client ID/secret, and allow `http://localhost:3000/auth/callback` as a redirect URL for local development.
 
 ## AI Orchestration
 

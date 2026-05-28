@@ -32,6 +32,22 @@ export function AuthForm() {
     router.push("/dashboard");
   }
 
+  async function signInWithGoogle() {
+    setMessage("");
+    const supabase = createClient();
+    const origin = window.location.origin;
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${origin}/auth/callback?next=/dashboard`,
+      },
+    });
+
+    if (error) {
+      setMessage("Google sign-in is not enabled yet. Check the Supabase Google provider settings.");
+    }
+  }
+
   return (
     <main className="grid min-h-screen place-items-center bg-[#020617] px-5 text-white">
       <Card className="w-full max-w-md">
@@ -59,6 +75,15 @@ export function AuthForm() {
           </div>
           {message ? <p className="rounded-md border border-amber-300/20 bg-amber-400/10 p-3 text-sm text-amber-100">{message}</p> : null}
           <Button className="w-full" onClick={submit}>{mode === "login" ? "Login" : "Sign up"}</Button>
+          <div className="flex items-center gap-3 text-xs uppercase tracking-[0.18em] text-slate-500">
+            <span className="h-px flex-1 bg-white/10" />
+            or
+            <span className="h-px flex-1 bg-white/10" />
+          </div>
+          <Button variant="secondary" className="w-full" onClick={signInWithGoogle}>
+            <span className="grid h-5 w-5 place-items-center rounded-full bg-white text-xs font-semibold text-slate-950">G</span>
+            Continue with Google
+          </Button>
           <Button variant="ghost" className="w-full" onClick={() => setMode(mode === "login" ? "signup" : "login")}>
             {mode === "login" ? "Need an account?" : "Already have an account?"}
           </Button>
