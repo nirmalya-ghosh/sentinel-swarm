@@ -1,0 +1,94 @@
+import type { AgentMessage, BattleLog, Threat } from "@/types/security";
+
+export const threats: Threat[] = [
+  {
+    id: "INC-4481",
+    timestamp: "23:14:09",
+    title: "Credential stuffing burst",
+    vector: "OAuth password spray",
+    source: "São Paulo, BR",
+    target: "identity-gateway-prod",
+    severity: "critical",
+    confidence: 97,
+    status: "triaging",
+    lat: -23.55,
+    lng: -46.63,
+  },
+  {
+    id: "INC-4478",
+    timestamp: "23:12:42",
+    title: "Lateral movement beacon",
+    vector: "SMB session chaining",
+    source: "Warsaw, PL",
+    target: "finance-vpc",
+    severity: "high",
+    confidence: 91,
+    status: "contained",
+    lat: 52.22,
+    lng: 21.01,
+  },
+  {
+    id: "INC-4473",
+    timestamp: "23:09:18",
+    title: "API anomaly cluster",
+    vector: "GraphQL introspection",
+    source: "Singapore, SG",
+    target: "public-api-edge",
+    severity: "medium",
+    confidence: 84,
+    status: "detected",
+    lat: 1.35,
+    lng: 103.82,
+  },
+  {
+    id: "INC-4469",
+    timestamp: "23:07:54",
+    title: "Container escape attempt",
+    vector: "Privileged mount probe",
+    source: "Reykjavik, IS",
+    target: "k8s-ml-cluster",
+    severity: "critical",
+    confidence: 95,
+    status: "remediated",
+    lat: 64.14,
+    lng: -21.9,
+  },
+];
+
+export const agentMessages: AgentMessage[] = [
+  {
+    id: "msg-1",
+    agent: "Monitor",
+    intent: "Detection",
+    timestamp: "23:14:10",
+    message: "Spike detected across identity endpoints. Correlating IP reputation and login entropy.",
+  },
+  {
+    id: "msg-2",
+    agent: "Analyst",
+    intent: "Reasoning",
+    timestamp: "23:14:13",
+    message: "Pattern matches credential stuffing with rotated residential proxies. Confidence 0.97.",
+  },
+  {
+    id: "msg-3",
+    agent: "Defender",
+    intent: "Response",
+    timestamp: "23:14:16",
+    message: "Adaptive MFA raised, risky ASN ranges challenged, token replay detection enabled.",
+  },
+  {
+    id: "msg-4",
+    agent: "Recovery",
+    intent: "Hardening",
+    timestamp: "23:14:20",
+    message: "Prepared account integrity report and queued forced reset for exposed identities.",
+  },
+];
+
+export const battleLogs: BattleLog[] = [
+  { id: "b-1", team: "red", action: "Generated phishing payload against finance group", probability: 62, timestamp: "00:00" },
+  { id: "b-2", team: "blue", action: "Raised mailbox detonation sandbox and rewrote URLs", probability: 79, timestamp: "00:03" },
+  { id: "b-3", team: "red", action: "Tried privilege escalation through stale IAM key", probability: 44, timestamp: "00:08" },
+  { id: "b-4", team: "blue", action: "Revoked key, rotated service secret, added honeytoken trap", probability: 88, timestamp: "00:12" },
+];
