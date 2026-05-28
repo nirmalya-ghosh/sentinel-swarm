@@ -12,6 +12,9 @@ Sentinel Swarm is a production-style futuristic AI cybersecurity platform built 
 - Animated threat intelligence world map with attack pulses.
 - Client PDF incident report generator plus server markdown report API.
 - Polling-ready API routes for threats, agent collaboration, battle simulation, and reports.
+- Demo mode for unauthenticated evaluation while keeping operational routes protected by default.
+- Incident detail pages with MITRE ATT&CK mapping, evidence, affected assets, and remediation actions.
+- Command palette, toast alerts, voice alert trigger, audit log, RBAC display, onboarding, settings, health check, and hardened security headers.
 
 ## Getting Started
 

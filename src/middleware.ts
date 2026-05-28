@@ -5,6 +5,7 @@ export async function middleware(request: NextRequest) {
   let response = NextResponse.next({ request });
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const isDemo = request.nextUrl.searchParams.get("demo") === "1";
 
   if (!url || !key) return response;
 
@@ -25,10 +26,14 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (request.nextUrl.pathname.startsWith("/dashboard") && !user) {
+  const protectedRoutes = ["/dashboard", "/incidents", "/settings", "/audit"];
+  const isProtected = protectedRoutes.some((route) => request.nextUrl.pathname.startsWith(route));
+
+  if (isProtected && !user && !isDemo) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/auth";
     redirectUrl.searchParams.set("next", request.nextUrl.pathname);
+    redirectUrl.searchParams.set("reason", "session_required");
     return NextResponse.redirect(redirectUrl);
   }
 
@@ -36,5 +41,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/auth"],
+  matcher: ["/dashboard/:path*", "/incidents/:path*", "/settings/:path*", "/audit/:path*", "/auth"],
 };

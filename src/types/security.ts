@@ -12,6 +12,9 @@ export type Threat = {
   status: "detected" | "triaging" | "contained" | "remediated";
   lat: number;
   lng: number;
+  mitre: string[];
+  affectedSystems: string[];
+  remediation: string[];
 };
 
 export type AgentRole = "Monitor" | "Defender" | "Analyst" | "Recovery";
@@ -38,4 +41,14 @@ export type ReportInput = {
   severity: Severity;
   affectedSystems: string[];
   recommendations: string[];
+};
+
+export type AuditEvent = {
+  id: string;
+  actor: string;
+  role: "admin" | "analyst" | "viewer" | "incident_commander" | "agent";
+  action: string;
+  target: string;
+  timestamp: string;
+  risk: Severity;
 };

@@ -12,7 +12,7 @@ export function AgentCollaboration() {
         <motion.div
           key={item.id}
           className="rounded-md border border-white/10 bg-white/[.035] p-3"
-          initial={{ opacity: 0, x: -12 }}
+          initial={false}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: index * 0.18 }}
         >

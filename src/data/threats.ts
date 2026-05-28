@@ -1,4 +1,4 @@
-import type { AgentMessage, BattleLog, Threat } from "@/types/security";
+import type { AgentMessage, AuditEvent, BattleLog, Threat } from "@/types/security";
 
 export const threats: Threat[] = [
   {
@@ -13,6 +13,9 @@ export const threats: Threat[] = [
     status: "triaging",
     lat: -23.55,
     lng: -46.63,
+    mitre: ["T1110", "T1078"],
+    affectedSystems: ["identity-gateway-prod", "sso-edge", "customer-auth"],
+    remediation: ["Enforce adaptive MFA", "Block high-risk ASNs", "Rotate active refresh tokens"],
   },
   {
     id: "INC-4478",
@@ -26,6 +29,9 @@ export const threats: Threat[] = [
     status: "contained",
     lat: 52.22,
     lng: 21.01,
+    mitre: ["T1021.002", "T1087"],
+    affectedSystems: ["finance-vpc", "win-file-02", "ledger-api"],
+    remediation: ["Isolate SMB peer path", "Reset privileged sessions", "Add EDR containment rule"],
   },
   {
     id: "INC-4473",
@@ -39,6 +45,9 @@ export const threats: Threat[] = [
     status: "detected",
     lat: 1.35,
     lng: 103.82,
+    mitre: ["T1190", "T1595"],
+    affectedSystems: ["public-api-edge", "graphql-gateway"],
+    remediation: ["Disable introspection in production", "Apply WAF schema rule", "Throttle anomalous tokens"],
   },
   {
     id: "INC-4469",
@@ -52,6 +61,48 @@ export const threats: Threat[] = [
     status: "remediated",
     lat: 64.14,
     lng: -21.9,
+    mitre: ["T1611", "T1610"],
+    affectedSystems: ["k8s-ml-cluster", "gpu-worker-pool"],
+    remediation: ["Remove privileged mounts", "Rebuild affected nodes", "Apply pod security admission policy"],
+  },
+];
+
+export const auditEvents: AuditEvent[] = [
+  {
+    id: "AUD-9001",
+    actor: "Defender Agent",
+    role: "agent",
+    action: "Raised adaptive MFA challenge",
+    target: "identity-gateway-prod",
+    timestamp: "23:14:17",
+    risk: "critical",
+  },
+  {
+    id: "AUD-9002",
+    actor: "Incident Commander",
+    role: "incident_commander",
+    action: "Approved automated containment",
+    target: "finance-vpc",
+    timestamp: "23:12:51",
+    risk: "high",
+  },
+  {
+    id: "AUD-9003",
+    actor: "Analyst Agent",
+    role: "agent",
+    action: "Mapped indicators to MITRE ATT&CK",
+    target: "INC-4473",
+    timestamp: "23:09:44",
+    risk: "medium",
+  },
+  {
+    id: "AUD-9004",
+    actor: "SOC Admin",
+    role: "admin",
+    action: "Rotated response webhook secret",
+    target: "notification-channel-prod",
+    timestamp: "22:58:03",
+    risk: "low",
   },
 ];
 

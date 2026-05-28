@@ -33,13 +33,13 @@ export function LandingPage() {
               <Link href="/auth">Login</Link>
             </Button>
             <Button asChild>
-              <Link href="/dashboard">Open Command Center</Link>
+              <Link href="/dashboard?demo=1">Open Command Center</Link>
             </Button>
           </div>
         </nav>
 
         <div className="grid flex-1 items-center gap-12 py-16 lg:grid-cols-[1.05fr_.95fr]">
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+          <motion.div initial={false} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.22em] text-cyan-100">
               <Sparkles className="h-3.5 w-3.5" />
               Autonomous AI Security Operations
@@ -53,7 +53,7 @@ export function LandingPage() {
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg">
-                <Link href="/dashboard">Launch live demo</Link>
+                <Link href="/dashboard?demo=1">Launch live demo</Link>
               </Button>
               <Button asChild size="lg" variant="secondary">
                 <Link href="/auth">Connect Supabase Auth</Link>
@@ -62,7 +62,7 @@ export function LandingPage() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
+            initial={false}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.15 }}
             className="relative"
@@ -100,7 +100,7 @@ export function LandingPage() {
       <section className="relative mx-auto max-w-7xl px-5 pb-24 sm:px-8 lg:px-10">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {features.map(([title, copy, Icon], index) => (
-            <motion.div key={title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }}>
+            <motion.div key={title} initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.08 }}>
               <Card className="h-full p-5 transition hover:border-cyan-300/40 hover:bg-white/[.06]">
                 <Icon className="mb-5 h-6 w-6 text-cyan-200" />
                 <h3 className="text-lg font-semibold">{title}</h3>

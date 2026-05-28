@@ -53,7 +53,7 @@ export function BattleSimulator() {
       </Button>
       <div className="space-y-2">
         {logs.map((log) => (
-          <motion.div key={log.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="rounded-md bg-white/[.04] p-3 text-sm">
+          <motion.div key={log.id} initial={false} animate={{ opacity: 1, y: 0 }} className="rounded-md bg-white/[.04] p-3 text-sm">
             <div className="flex items-center justify-between">
               <span className={log.team === "blue" ? "text-cyan-100" : "text-rose-100"}>{log.team.toUpperCase()}</span>
               <span className="font-mono text-xs text-slate-400">{log.probability}%</span>
