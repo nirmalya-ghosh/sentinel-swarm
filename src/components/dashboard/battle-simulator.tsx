@@ -12,15 +12,20 @@ export function BattleSimulator() {
   const [score, setScore] = useState(82);
   const [logs, setLogs] = useState(battleLogs);
 
-  function simulate() {
-    const blueWon = Math.random() > 0.38;
-    const nextScore = Math.min(99, Math.max(35, score + (blueWon ? 4 : -7)));
-    setScore(nextScore);
+  async function simulate() {
+    const response = await fetch("/api/battle/simulate", { method: "POST" });
+    const payload = (await response.json()) as {
+      redTeam: { action: string; successProbability: number };
+      blueTeam: { action: string; successProbability: number };
+      securityScore: number;
+    };
+    const blueWon = payload.blueTeam.successProbability >= payload.redTeam.successProbability;
+    setScore(payload.securityScore);
     const nextLog: BattleLog = {
         id: crypto.randomUUID(),
         team: blueWon ? "blue" : "red",
-        action: blueWon ? "Blue Team isolated attack path and deployed compensating control" : "Red Team bypassed baseline detection with adaptive payload",
-        probability: blueWon ? Math.floor(78 + Math.random() * 18) : Math.floor(42 + Math.random() * 30),
+        action: blueWon ? payload.blueTeam.action : payload.redTeam.action,
+        probability: blueWon ? payload.blueTeam.successProbability : payload.redTeam.successProbability,
         timestamp: new Date().toLocaleTimeString(),
     };
     setLogs((current) => [nextLog, ...current].slice(0, 5));

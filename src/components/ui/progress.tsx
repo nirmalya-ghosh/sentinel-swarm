@@ -8,9 +8,9 @@ export function Progress({
   ...props
 }: React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>) {
   return (
-    <ProgressPrimitive.Root className={cn("relative h-2 overflow-hidden rounded-full bg-white/10", className)} {...props}>
+    <ProgressPrimitive.Root className={cn("relative h-2 overflow-hidden rounded-none border border-zinc-800 bg-zinc-950", className)} {...props}>
       <ProgressPrimitive.Indicator
-        className="h-full rounded-full bg-cyan-300 shadow-[0_0_18px_rgba(103,232,249,.8)] transition-all"
+        className="h-full rounded-none bg-teal-400 transition-all"
         style={{ transform: `translateX(-${100 - Number(value)}%)` }}
       />
     </ProgressPrimitive.Root>

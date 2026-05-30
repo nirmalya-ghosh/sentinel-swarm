@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { getSupabaseServiceClient } from "@/lib/supabase/service";
+
 export async function GET() {
   const started = Date.now();
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -21,13 +23,22 @@ export async function GET() {
       headers: { apikey: key },
       cache: "no-store",
     });
+    const supabase = getSupabaseServiceClient();
+    const schemaCheck = supabase
+      ? await supabase.from("incidents").select("id").limit(1)
+      : { error: new Error("Service role client unavailable") };
+    const schemaReady = !schemaCheck.error;
     const latencyMs = Date.now() - started;
 
     return NextResponse.json({
-      status: response.ok ? "connected" : "degraded",
+      status: response.ok && schemaReady ? "connected" : response.ok ? "degraded" : "offline",
       latencyMs,
       checkedAt: new Date().toISOString(),
-      detail: response.ok ? "Supabase Auth reachable" : `Supabase responded with ${response.status}`,
+      detail: response.ok && schemaReady
+        ? "Supabase Auth and Sentinel schema reachable"
+        : response.ok
+          ? `Supabase Auth reachable; schema check failed`
+          : `Supabase responded with ${response.status}`,
     });
   } catch (error) {
     return NextResponse.json(

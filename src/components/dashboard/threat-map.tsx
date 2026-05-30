@@ -12,11 +12,11 @@ function project(lat: number, lng: number) {
 
 export function ThreatMap({ threats }: { threats: Threat[] }) {
   return (
-    <div className="relative h-[280px] overflow-hidden rounded-lg border border-white/10 bg-[#03121e]">
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(103,232,249,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(103,232,249,.08)_1px,transparent_1px)] bg-[size:34px_34px]" />
+    <div className="relative h-full min-h-[96px] overflow-hidden border border-zinc-800 bg-black">
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(63,63,70,.36)_1px,transparent_1px),linear-gradient(90deg,rgba(63,63,70,.36)_1px,transparent_1px)] bg-[size:28px_28px]" />
       <svg className="absolute inset-0 h-full w-full opacity-60" viewBox="0 0 100 60" preserveAspectRatio="none">
-        <path d="M9 19 C18 9 31 15 41 12 C55 8 64 18 77 13 C87 10 94 20 91 29 C86 45 65 37 55 44 C40 54 27 42 16 45 C6 48 0 31 9 19Z" fill="rgba(15,118,110,.28)" stroke="rgba(103,232,249,.25)" />
-        <path d="M14 33 C25 30 31 35 37 32 C42 29 49 33 47 39 C44 47 27 46 20 42 C14 39 10 36 14 33Z" fill="rgba(34,197,94,.16)" stroke="rgba(103,232,249,.18)" />
+        <path d="M9 19 C18 9 31 15 41 12 C55 8 64 18 77 13 C87 10 94 20 91 29 C86 45 65 37 55 44 C40 54 27 42 16 45 C6 48 0 31 9 19Z" fill="rgba(20,184,166,.16)" stroke="rgba(20,184,166,.32)" />
+        <path d="M14 33 C25 30 31 35 37 32 C42 29 49 33 47 39 C44 47 27 46 20 42 C14 39 10 36 14 33Z" fill="rgba(16,185,129,.12)" stroke="rgba(16,185,129,.24)" />
       </svg>
       {threats.slice(0, 6).map((threat) => {
         const point = project(threat.lat, threat.lng);
@@ -29,15 +29,15 @@ export function ThreatMap({ threats }: { threats: Threat[] }) {
             animate={{ scale: 1, opacity: 1 }}
           >
             <motion.span
-              className="absolute -left-5 -top-5 h-10 w-10 rounded-full border border-cyan-200/50"
-              animate={{ scale: [0.6, 2.4], opacity: [0.8, 0] }}
-              transition={{ duration: 2.2, repeat: Infinity }}
+              className="absolute -left-4 -top-4 h-8 w-8 border border-rose-400/50"
+              animate={{ scale: [0.6, 1.8], opacity: [0.75, 0] }}
+              transition={{ duration: 1.2, repeat: Infinity }}
             />
-            <span className="block h-2.5 w-2.5 rounded-full bg-cyan-200 shadow-[0_0_20px_rgba(103,232,249,.9)]" />
+            <span className="block h-2 w-2 bg-rose-400 shadow-[0_0_16px_rgba(244,63,94,.9)]" />
           </motion.div>
         );
       })}
-      <div className="absolute bottom-4 left-4 rounded-md border border-white/10 bg-slate-950/70 px-3 py-2 text-xs text-slate-300 backdrop-blur">
+      <div className="absolute bottom-2 left-2 border border-zinc-800 bg-zinc-950/85 px-2 py-1 font-mono text-[10px] text-zinc-400">
         Global attack pulse mesh: {threats.length} active signals
       </div>
     </div>
