@@ -309,6 +309,13 @@ Expected response:
 }
 ```
 
+## Google OAuth Setup
+
+1. In Supabase Auth providers, enable Google and add the Google OAuth client ID and secret.
+2. Set the local Site URL to `http://localhost:3000`.
+3. Add `http://localhost:3000/auth/callback` to Supabase Redirect URLs.
+4. The app also recovers safely if Supabase sends the OAuth code to `/` by forwarding it to `/auth/callback` before exchanging the code for a session.
+
 The schema creates:
 
 - `incidents`

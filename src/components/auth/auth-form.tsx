@@ -18,6 +18,7 @@ export function AuthForm() {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const reason = searchParams.get("reason");
+  const error = searchParams.get("error");
   const next = searchParams.get("next") ?? "/dashboard";
 
   async function submit() {
@@ -70,6 +71,12 @@ export function AuthForm() {
           {reason === "session_required" ? (
             <p className="rounded-md border border-cyan-300/20 bg-cyan-300/10 p-3 text-sm text-cyan-100">
               Your secure session is required to enter the command center.
+            </p>
+          ) : null}
+          {error === "oauth" ? (
+            <p className="rounded-md border border-amber-300/20 bg-amber-400/10 p-3 text-sm text-amber-100">
+              Google returned without a valid session. Try again, or confirm Supabase Auth has
+              `http://localhost:3000/auth/callback` in Redirect URLs.
             </p>
           ) : null}
           <div className="space-y-2">
